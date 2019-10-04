@@ -22,7 +22,7 @@ for index, tr in enumerate(t_body):
         jobs[job_id[0]] = {'title': title, 'link': link}
 
 # Writing list to json-file
-with open('text_files/titles.json', 'w', encoding='utf-8') as outfile:
+with open('data/jobs.json', 'w', encoding='utf-8') as outfile:
     outfile.write(json.dumps(jobs, indent=4, sort_keys=True, ensure_ascii=False))
 
 
