@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
+import json
+from urllib.parse import urlparse, parse_qs
 
 
 # Running the scraper
@@ -10,10 +12,17 @@ t_body = scraper.find('table')
 t_body = t_body.findAll('tr')
 
 # Appending the results to list (titles)
-titles = []
+jobs = {}
 for index, tr in enumerate(t_body):
     if index != 0:
-        titles.append(tr.find('a').text)
+        title = tr.find('a').text
+        link = tr.find('a')['href']
+        url = urlparse(link)
+        job_id = parse_qs(url.query)['jobbid']
+        jobs[job_id[0]] = {'title': title, 'link': link}
 
-for title in titles:
-    print(title)
+# Writing list to json-file
+with open('text_files/titles.json', 'w', encoding='utf-8') as outfile:
+    outfile.write(json.dumps(jobs, indent=4, sort_keys=True, ensure_ascii=False))
+
+
