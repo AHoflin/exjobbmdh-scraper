@@ -1,3 +1,4 @@
 .idea
 data/jobs.json
+data/temp_jobs.json
 .env
